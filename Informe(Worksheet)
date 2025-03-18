@@ -1,0 +1,32 @@
+Option Explicit
+Public ValorAnterior As Variant
+Private Sub Worksheet_SelectionChange(ByVal Target As Range)
+If Target.Column <= 50 And Target.Row <= 200 Then
+   ValorAnterior = Target.Value
+End If
+ 
+End Sub
+ 
+ 
+Private Sub Worksheet_Change(ByVal Target As Range)
+ 
+Dim HojaTrail As Worksheet
+Dim RangoTrail As Range
+Dim NuevaFila As Integer
+ 
+If Target.Column <= 100 And Target.Row <= 250 Then
+  
+   Set HojaTrail = ThisWorkbook.Sheets("Trail")
+   Set RangoTrail = HojaTrail.Range("A2").CurrentRegion
+   NuevaFila = RangoTrail.Rows.Count + 1
+  
+   With HojaTrail
+       .Cells(NuevaFila, 1).Value = Application.UserName
+       .Cells(NuevaFila, 2).Value = Target.Address
+      .Cells(NuevaFila, 3).Value = "INFORME"
+       .Cells(NuevaFila, 4).Value = Date & "  " & Time
+       .Cells(NuevaFila, 5).Value = ValorAnterior
+       .Cells(NuevaFila, 6).Value = Target.Value
+   End With
+End If
+End Sub
