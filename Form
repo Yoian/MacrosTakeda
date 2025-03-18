@@ -1,0 +1,24 @@
+
+
+Option Explicit
+Option Compare Binary
+
+Private Sub AccessButton_Click()
+    Call Module1.Ingresar
+End Sub
+
+Sub CancelButton_Click()
+    Call Module1.Cancelar
+End Sub
+
+Private Sub Image1_BeforeDragOver(ByVal Cancel As MSForms.ReturnBoolean, ByVal Data As MSForms.DataObject, ByVal X As Single, ByVal Y As Single, ByVal DragState As MSForms.fmDragState, ByVal Effect As MSForms.ReturnEffect, ByVal Shift As Integer)
+
+End Sub
+
+Private Sub TxtUser_Change()
+
+End Sub
+
+Private Sub UserForm_Click()
+
+End Sub
