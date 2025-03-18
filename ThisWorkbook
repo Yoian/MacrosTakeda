@@ -1,0 +1,14 @@
+Option Explicit
+ 
+Private Sub Workbook_NewSheet(ByVal Sh As Object)
+   Application.DisplayAlerts = False
+   ActiveSheet.Delete
+   MsgBox "No se tiene permitido insertar nuevas hojas de cálculo", vbExclamation, "Alerta"
+   Application.DisplayAlerts = True
+End Sub
+ 
+Private Sub Workbook_Open()
+   Call Module1.AbrirLibro
+   Worksheets("Trail").Activate
+End Sub
+ 
