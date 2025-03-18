@@ -1,0 +1,93 @@
+Option Explicit
+Option Compare Binary
+Sub Cancelar()
+   Unload UF_Log
+   Application.Quit
+End Sub
+ 
+Sub AbrirLibro()
+   Application.Visible = False
+   UF_Log.Show
+End Sub
+ 
+Sub Ingresar()
+   Dim Usuario As String
+   Dim Password As String
+   Dim colUsuario As Range
+   Dim Rol As String
+   Dim Fila, final As Integer
+  
+   If UF_Log.TxtUser.Value = "" Then
+       MsgBox "Ingrese un Usuario."
+      UF_Log.TxtUser.SetFocus
+       Exit Sub
+   End If
+  
+   If UF_Log.TxtPassword.Value = "" Then
+       MsgBox "Ingrese una contraseña."
+      UF_Log.TxtPassword.SetFocus
+       Exit Sub
+   End If
+  
+   Usuario = UF_Log.TxtUser.Value
+   Password = UF_Log.TxtPassword.Value
+   Set colUsuario = Hoja5.ListObjects("Users").ListColumns(1).Range
+  
+   Dim celUsuario As Range
+   Set celUsuario = colUsuario.Find(What:=Usuario, _
+                                  After:=colUsuario.Cells(1), _
+                                  LookIn:=xlValues, _
+                                  LookAt:=xlWhole, _
+                                  SearchOrder:=xlByRows, _
+                                  SearchDirection:=xlNext, _
+                                  MatchCase:=True)
+                                  
+   If celUsuario Is Nothing Then
+       MsgBox "El Usuario no existe."
+      UF_Log.TxtUser.Value = ""
+      UF_Log.TxtPassword.Value = ""
+       UF_Log.TxtUser.SetFocus
+   Else
+       If celUsuario.Offset(0, 1).Value = Password And celUsuario.Offset(0, 2).Value = "Administrador" Then
+           Unload UF_Log
+           MsgBox "Acceso correcto", vbExclamation, "Ok"
+           ThisWorkbook.Unprotect Password:="Takeda--Ing!25"
+           Application.Visible = True
+           Hoja5.Visible = True
+           ThisWorkbook.Protect Password:="Takeda--Ing!25", Structure:=True
+           For Fila = 1 To 1000000
+                           If Hoja4.Cells(Fila, 1) = "" Then
+                            final = Fila
+                             Exit For
+                             End If
+                       Next
+           Hoja4.Unprotect Password:="Takeda--Ing!25"
+           Hoja4.Cells(final, 1) = Application.UserName & " accessed via log in " & " at " & Time & " " & Date
+           Hoja4.Protect Password:="Takeda--Ing!25"
+       Else
+       If celUsuario.Offset(0, 1).Value = Password And celUsuario.Offset(0, 2).Value = "Usuario" Then
+           Unload UF_Log
+           MsgBox "Acceso correcto", vbExclamation, "Ok"
+           ThisWorkbook.Unprotect Password:="Takeda--Ing!25"
+           Application.Visible = True
+           Hoja5.Visible = False
+          
+           ThisWorkbook.Protect Password:="Takeda--Ing!25", Structure:=True
+          
+           For Fila = 1 To 1000000
+                           If Hoja4.Cells(Fila, 1) = "" Then
+                            final = Fila
+                             Exit For
+                             End If
+                       Next
+           Hoja4.Unprotect Password:="Takeda--Ing!25"
+           Hoja4.Cells(final, 1) = Application.UserName & " accessed via log in " & " at " & Time & " " & Date
+           Hoja4.Protect Password:="Takeda--Ing!25"
+       Else
+           MsgBox "La contraseña es Incorrecta."
+       End If
+       End If
+   End If
+End Sub
+ 
+
