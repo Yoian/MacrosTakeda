@@ -1,0 +1,8 @@
+Private Sub Worksheet_Activate()
+   ActiveSheet.Protect Password:="Takeda--Ing!25", AllowFiltering:=True
+End Sub
+ 
+Private Sub Worksheet_Deactivate()
+   Hoja4.Unprotect Password:="Takeda--Ing!25"
+End Sub
+
