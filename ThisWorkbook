@@ -13,8 +13,6 @@ Private Sub Workbook_Open()
    Application.CellDragAndDrop = False
 End Sub
 
-Option Explicit
-
 Private Sub Workbook_SheetSelectionChange(ByVal Sh As Object, ByVal Target As Range)
     Application.CutCopyMode = False ' Borra cualquier intento de copiar/cortar
 End Sub
