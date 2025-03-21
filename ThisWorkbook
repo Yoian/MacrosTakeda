@@ -10,5 +10,11 @@ End Sub
 Private Sub Workbook_Open()
    Call Module1.AbrirLibro
    Worksheets("Trail").Activate
+   Application.CellDragAndDrop = False
 End Sub
- 
+
+Option Explicit
+
+Private Sub Workbook_SheetSelectionChange(ByVal Sh As Object, ByVal Target As Range)
+    Application.CutCopyMode = False ' Borra cualquier intento de copiar/cortar
+End Sub
